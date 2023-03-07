@@ -1,0 +1,1 @@
+print("Pierwszy commit w projekcie")
