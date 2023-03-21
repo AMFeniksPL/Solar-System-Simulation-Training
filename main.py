@@ -8,7 +8,6 @@ from pygame.locals import *
 
 class Planet:
 
-
     counter = 0
     listOfPlanets = []
 
@@ -27,6 +26,11 @@ class Planet:
         self.isSun = False
 
         self.velX = self.velY = 0
+
+        if len(Planet.listOfPlanets) > 0:
+            sunMass = Planet.listOfPlanets[0].mass
+            self.velY = (Planet.G * sunMass / self.x) ** 0.5
+
 
         Planet.counter += 1
         Planet.listOfPlanets.append(self)
@@ -69,7 +73,6 @@ class Planet:
         pygame.draw.circle(screen, self.color, (x, y), self.radius)
 
 
-
     @staticmethod
     def draw_all_planets():
         for planet in Planet.listOfPlanets:
@@ -94,13 +97,12 @@ def main():
     # Zegar kontrolujący FPS-y
     clock = pygame.time.Clock()
 
-    sun = Planet(0, 0, 20, (255, 255, 0), 3.0e30)
+    sun = Planet(0, 0, 20, (255, 255, 0), 2.0e30)
 
     mercury = Planet(0.42 * Planet.AU, 0, 10, (0, 0, 200), 0.330e24)
     venus = Planet(0.72 * Planet.AU, 0, 10, (0, 0, 200), 4.87e24)
     earth = Planet(1 * Planet.AU, 0, 10, (0, 0, 200), 5.97e24)
     mars = Planet(1.63 * Planet.AU, 0, 10, (0, 0, 200), 0.642e24)
-    listOfPlanet = [sun, mercury, venus, earth, mars]
 
     # Pętla gry
     running = True
